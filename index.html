@@ -4,129 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>กินอะไรดี? - What Should I Eat?</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Kanit & Mitr) -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Mitr:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            bg: '#F5EBE6',           /* Soft Warm Creamy Beige Background */
+                            card: '#EFE3DC',         /* Darker Cream Pastel Card (No White) */
+                            cardInner: '#E7D7CE',    /* Accent Inner Card */
+                            mint: '#D8E2DC',         /* Pastel Sage Green */
+                            mintDark: '#B2C5B9',
+                            peach: '#FFE5D9',        /* Soft Peach */
+                            peachHover: '#FCD5CE',
+                            amber: '#F8EDEB',        /* Soft Rose Almond */
+                            accent: '#C08552',       /* Muted Caramel Accent */
+                            textMain: '#5E503F',     /* Soft Warm Dark Brown */
+                            textSub: '#8E7D6B'       /* Soft Muted Brown */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                        heading: ['Mitr', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Kanit', sans-serif; }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #F5EBE6;
+            color: #5E503F;
+        }
+        .font-heading {
+            font-family: 'Mitr', sans-serif;
+        }
+        /* Soft Minimal Shadows */
+        .pastel-shadow {
+            box-shadow: 0 15px 35px -10px rgba(94, 80, 63, 0.08), 0 5px 15px -5px rgba(94, 80, 63, 0.04);
+        }
     </style>
 </head>
-<body class="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-pastel-bg">
 
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden border border-amber-100 min-h-[620px] flex flex-col justify-between p-6">
+    <!-- App Container -->
+    <div class="w-full max-w-md bg-pastel-card rounded-3xl pastel-shadow border border-[#E3D3C8] min-h-[640px] flex flex-col justify-between p-7 relative overflow-hidden transition-all duration-300">
 
+        <!-- STEP 1: HOME PAGE -->
         <div id="step-home" class="flex flex-col justify-between h-full space-y-8 my-auto">
-            <div class="text-center space-y-3 pt-4">
-                <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+            <div class="text-center space-y-4 pt-6">
+                <!-- Icon with soft pastel background -->
+                <div class="w-24 h-24 bg-pastel-peach rounded-full flex items-center justify-center mx-auto text-5xl shadow-inner border border-[#F2C6B4]">
                     🍳
                 </div>
-                <h1 class="text-3xl font-bold text-gray-800">กินอะไรดี?</h1>
-                <p class="text-gray-500 text-sm">ช่วยเลือกเมนู พร้อมค้นหาร้านใกล้คุณ<br>ได้ทันทีในไม่กี่วินาที</p>
+                <div class="space-y-1">
+                    <h1 class="text-3xl font-heading font-semibold text-pastel-textMain tracking-wide">กินอะไรดี?</h1>
+                    <p class="text-pastel-textSub text-sm font-light leading-relaxed">คัดสรร 300+ เมนูอร่อย<br>พร้อมช่วยคุณตัดสินใจมื้อนี้ได้ทันที</p>
+                </div>
             </div>
 
-            <div class="space-y-3">
-                <button onclick="goToStep('step-budget')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3.5 rounded-2xl shadow-lg shadow-amber-200 transition active:scale-95 text-lg">
-                    🎯 ช่วยฉันเลือก (กรองเงื่อนไข)
+            <div class="space-y-3 pb-2">
+                <button onclick="goToStep('step-budget')" class="w-full bg-pastel-mintDark hover:bg-[#A3B8AC] text-pastel-textMain font-medium py-3.5 px-4 rounded-2xl shadow-sm transition-all duration-200 active:scale-[0.98] text-base flex items-center justify-center gap-2">
+                    <span>✨ ช่วยฉันเลือก (กรองเงื่อนไข)</span>
                 </button>
-                <button onclick="randomDirectly()" class="w-full bg-amber-100 hover:bg-amber-200 text-amber-800 font-medium py-3.5 rounded-2xl transition active:scale-95 text-lg">
-                    🎲 สุ่มเมนูทันที
+                <button onclick="randomDirectly()" class="w-full bg-pastel-peach hover:bg-pastel-peachHover text-pastel-textMain font-medium py-3.5 px-4 rounded-2xl border border-[#F2C6B4] transition-all duration-200 active:scale-[0.98] text-base flex items-center justify-center gap-2">
+                    <span>🎲 สุ่มเมนูทันที</span>
                 </button>
-                <button onclick="searchNearbyGeneral()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-2xl transition active:scale-95 text-sm flex items-center justify-center gap-2">
-                    📍 ค้นหาร้านอาหารใกล้ฉันเลย
+                <button onclick="searchNearbyGeneral()" class="w-full bg-pastel-cardInner hover:bg-[#DECAC0] text-pastel-textSub font-normal py-3 px-4 rounded-2xl transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-center gap-1.5">
+                    📍 ค้นหาร้านอาหารใกล้ฉัน
                 </button>
             </div>
         </div>
 
-        <div id="step-budget" class="hidden space-y-6">
-            <div>
-                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">ขั้นตอนที่ 1 จาก 2</span>
-                <h2 class="text-2xl font-bold text-gray-800 mt-1">เลือกลิมิตงบประมาณ 💵</h2>
+        <!-- STEP 2: BUDGET -->
+        <div id="step-budget" class="hidden space-y-6 my-auto">
+            <div class="text-center space-y-1">
+                <span class="inline-block px-3 py-1 bg-pastel-mintDark/40 text-pastel-textMain rounded-full text-xs font-medium tracking-wider mb-1">ขั้นตอนที่ 1 จาก 2</span>
+                <h2 class="text-2xl font-heading font-semibold text-pastel-textMain">งบประมาณมื้อนี้ 💵</h2>
             </div>
-            <div class="space-y-3">
-                <button onclick="selectBudget(50)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
-                    ต่ำกว่า 50 บาท (ประหยัด)
+            
+            <div class="space-y-2.5">
+                <button onclick="selectBudget(50)" class="budget-btn w-full p-4 bg-pastel-cardInner/70 hover:bg-pastel-mint/80 border border-[#DAC4B8] rounded-2xl text-left font-normal text-pastel-textMain transition-all duration-200 flex justify-between items-center group">
+                    <span>ต่ำกว่า 50 บาท</span>
+                    <span class="text-xs text-pastel-textSub group-hover:text-pastel-textMain font-light">ประหยัดสุดคุ้ม</span>
                 </button>
-                <button onclick="selectBudget(100)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
-                    50 - 100 บาท (มาตรฐาน)
+                <button onclick="selectBudget(100)" class="budget-btn w-full p-4 bg-pastel-cardInner/70 hover:bg-pastel-mint/80 border border-[#DAC4B8] rounded-2xl text-left font-normal text-pastel-textMain transition-all duration-200 flex justify-between items-center group">
+                    <span>50 - 100 บาท</span>
+                    <span class="text-xs text-pastel-textSub group-hover:text-pastel-textMain font-light">มาตรฐานจานเดียว</span>
                 </button>
-                <button onclick="selectBudget(150)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
-                    101 - 150 บาท (มื้อพิเศษ)
+                <button onclick="selectBudget(150)" class="budget-btn w-full p-4 bg-pastel-cardInner/70 hover:bg-pastel-mint/80 border border-[#DAC4B8] rounded-2xl text-left font-normal text-pastel-textMain transition-all duration-200 flex justify-between items-center group">
+                    <span>101 - 150 บาท</span>
+                    <span class="text-xs text-pastel-textSub group-hover:text-pastel-textMain font-light">มื้อพิเศษ/ในห้าง</span>
                 </button>
-                <button onclick="selectBudget(999)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
-                    มากกว่า 150 บาท (จัดเต็ม)
+                <button onclick="selectBudget(999)" class="budget-btn w-full p-4 bg-pastel-cardInner/70 hover:bg-pastel-mint/80 border border-[#DAC4B8] rounded-2xl text-left font-normal text-pastel-textMain transition-all duration-200 flex justify-between items-center group">
+                    <span>มากกว่า 150 บาท</span>
+                    <span class="text-xs text-pastel-textSub group-hover:text-pastel-textMain font-light">จัดเต็ม / บุฟเฟต์</span>
                 </button>
             </div>
-            <button onclick="goToStep('step-home')" class="text-sm text-gray-400 hover:text-gray-600 w-full text-center">← ย้อนกลับ</button>
+            
+            <button onclick="goToStep('step-home')" class="text-xs text-pastel-textSub hover:text-pastel-textMain w-full text-center py-2 transition-colors">← ย้อนกลับ</button>
         </div>
 
-        <div id="step-pref" class="hidden space-y-6">
-            <div>
-                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">ขั้นตอนที่ 2 จาก 2</span>
-                <h2 class="text-2xl font-bold text-gray-800 mt-1">ข้อจำกัดอาหาร 🚫</h2>
+        <!-- STEP 3: PREFERENCES -->
+        <div id="step-pref" class="hidden space-y-6 my-auto">
+            <div class="text-center space-y-1">
+                <span class="inline-block px-3 py-1 bg-pastel-mintDark/40 text-pastel-textMain rounded-full text-xs font-medium tracking-wider mb-1">ขั้นตอนที่ 2 จาก 2</span>
+                <h2 class="text-2xl font-heading font-semibold text-pastel-textMain">วัตถุดิบ & รสชาติ 🚫</h2>
             </div>
 
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">อาหารที่ไม่กิน / อาหารที่แพ้</label>
+            <div class="space-y-5">
+                <!-- 1. อาหารที่ไม่กิน / อาหารที่แพ้ -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-medium text-pastel-textSub tracking-wide">วัตถุดิบที่ไม่กิน / แพ้ (เลือกได้หลายข้อ)</label>
                     <div class="grid grid-cols-2 gap-2 text-sm">
-                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
-                            <input type="checkbox" value="กุ้ง" class="pref-tag rounded text-amber-500 mr-2"> กุ้ง / อาหารทะเล
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="กุ้ง" class="pref-tag hidden"> 🦐 กุ้ง / ทะเล
                         </label>
-                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
-                            <input type="checkbox" value="หมู" class="pref-tag rounded text-amber-500 mr-2"> เนื้อหมู
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="หมู" class="pref-tag hidden"> 🐖 เนื้อหมู
                         </label>
-                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
-                            <input type="checkbox" value="เนื้อ" class="pref-tag rounded text-amber-500 mr-2"> เนื้อวัว
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="เนื้อ" class="pref-tag hidden"> 🥩 เนื้อวัว
                         </label>
-                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
-                            <input type="checkbox" value="ผัก" class="pref-tag rounded text-amber-500 mr-2"> ผัก
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="ไก่" class="pref-tag hidden"> 🐔 เนื้อไก่
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="ผัก" class="pref-tag hidden"> 🥦 ผัก
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl cursor-pointer hover:bg-pastel-peach/60 has-[:checked]:border-[#E8A598] has-[:checked]:bg-pastel-peach has-[:checked]:text-pastel-textMain transition-all duration-200 text-xs font-normal">
+                            <input type="checkbox" value="ไข่" class="pref-tag hidden"> 🥚 ไข่ไก่
                         </label>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">ระดับความเผ็ดที่กินได้ 🌶️</label>
-                    <select id="spicy-level" class="w-full p-3 border-2 border-gray-100 rounded-xl focus:border-amber-500 outline-none text-sm">
-                        <option value="0">ไม่เผ็ดเลย (0/3)</option>
-                        <option value="1" selected>เผ็ดน้อย (1/3)</option>
-                        <option value="2">เผ็ดกลาง (2/3)</option>
-                        <option value="3">เผ็ดมาก (3/3)</option>
-                    </select>
+                <!-- 2. ระดับความเผ็ด -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-medium text-pastel-textSub tracking-wide">ความเผ็ดสูงสุดที่รับได้ 🌶️</label>
+                    <input type="hidden" id="spicy-level" value="1">
+                    <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                        <button type="button" onclick="setSpicy(0, this)" class="spicy-btn p-2.5 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl transition-all duration-200 hover:border-pastel-accent">
+                            🚫<br><span class="text-[11px] font-light">ไม่เผ็ด</span>
+                        </button>
+                        <button type="button" onclick="setSpicy(1, this)" class="spicy-btn p-2.5 bg-pastel-peach border border-[#F2C6B4] text-pastel-textMain rounded-xl transition-all duration-200">
+                            🌶️<br><span class="text-[11px] font-light">เผ็ดน้อย</span>
+                        </button>
+                        <button type="button" onclick="setSpicy(2, this)" class="spicy-btn p-2.5 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl transition-all duration-200 hover:border-pastel-accent">
+                            🌶️🌶️<br><span class="text-[11px] font-light">เผ็ดกลาง</span>
+                        </button>
+                        <button type="button" onclick="setSpicy(3, this)" class="spicy-btn p-2.5 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl transition-all duration-200 hover:border-pastel-accent">
+                            🔥<br><span class="text-[11px] font-light">เผ็ดมาก</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="pt-2">
-                <button onclick="processWizardResult()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3.5 rounded-2xl shadow-lg transition active:scale-95">
-                    ประมวลผลและสุ่มเมนู ⚙️
+                <button onclick="processWizardResult()" class="w-full bg-pastel-mintDark hover:bg-[#A3B8AC] text-pastel-textMain font-medium py-3.5 rounded-2xl shadow-sm transition-all duration-200 active:scale-[0.98]">
+                    ประมวลผลเมนู ✨
                 </button>
-                <button onclick="goToStep('step-budget')" class="text-sm text-gray-400 hover:text-gray-600 w-full text-center mt-3">← ย้อนกลับ</button>
+                <button onclick="goToStep('step-budget')" class="text-xs text-pastel-textSub hover:text-pastel-textMain w-full text-center mt-3 py-1 transition-colors">← ย้อนกลับ</button>
             </div>
         </div>
 
+        <!-- STEP 4: LOADING -->
         <div id="step-loading" class="hidden flex-col items-center justify-center my-auto space-y-4 text-center">
-            <div class="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-gray-600 font-medium">ระบบกำลังเลือกเมนูอร่อยๆ<br>ที่เหมาะกับคุณ...</p>
+            <div class="relative w-16 h-16 flex items-center justify-center">
+                <div class="w-16 h-16 border-4 border-pastel-cardInner border-t-pastel-accent rounded-full animate-spin"></div>
+                <span class="absolute text-xl">🥗</span>
+            </div>
+            <p class="text-pastel-textSub text-sm font-light leading-relaxed">กำลังสุ่มคัดเลือกเมนูสุดอร่อย<br>ที่เหมาะกับคุณที่สุด...</p>
         </div>
 
-        <div id="step-result" class="hidden space-y-5 text-center my-auto">
-            <div class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold" id="result-badge">
-                ผลลัพธ์จากการสุ่ม
+        <!-- STEP 5: RESULT PAGE -->
+        <div id="step-result" class="hidden space-y-6 text-center my-auto">
+            <div>
+                <span class="inline-block px-3.5 py-1 bg-pastel-peach border border-[#F2C6B4] text-pastel-textMain rounded-full text-xs font-normal" id="result-badge">
+                    ผลลัพธ์จากการสุ่ม
+                </span>
             </div>
 
-            <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-3xl border border-amber-200 shadow-sm space-y-3">
-                <div class="text-6xl" id="menu-icon">🍱</div>
-                <h3 class="text-2xl font-bold text-gray-800" id="menu-name">ข้าวกะเพราหมูกรอบ</h3>
-                <p class="text-amber-600 font-semibold text-lg" id="menu-price">ประมาณ 65 บาท</p>
-                <p class="text-xs text-gray-500" id="menu-desc">ความเผ็ด: เผ็ดกลาง | ไม่ขัดกับเงื่อนไขที่แพ้</p>
+            <!-- Menu Card -->
+            <div class="bg-pastel-cardInner/80 p-6 rounded-3xl border border-[#DAC4B8] space-y-3 relative">
+                <div class="text-6xl my-2 transform transition-transform hover:scale-110 duration-200" id="menu-icon">🍱</div>
+                <h3 class="text-2xl font-heading font-semibold text-pastel-textMain" id="menu-name">ข้าวกะเพราหมูกรอบ</h3>
+                <p class="text-pastel-accent font-medium text-base" id="menu-price">ประมาณ 65 บาท</p>
+                <p class="text-xs text-pastel-textSub font-light" id="menu-desc">ความเผ็ดระดับ: 1/3</p>
             </div>
 
-            <div class="space-y-2.5">
-                <button id="find-nearby-btn" onclick="findNearbyStore()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3.5 rounded-2xl shadow-md transition active:scale-95 flex items-center justify-center gap-2">
+            <!-- Action Buttons -->
+            <div class="space-y-2.5 pt-2">
+                <button id="find-nearby-btn" onclick="findNearbyStore()" class="w-full bg-pastel-mintDark hover:bg-[#A3B8AC] text-pastel-textMain font-medium py-3.5 rounded-2xl shadow-sm transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 text-sm">
                     📍 ค้นหาร้านเมนูนี้ใกล้ฉัน
                 </button>
-                <button onclick="rerandom()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 rounded-2xl shadow-sm transition active:scale-95">
+                <button onclick="rerandom()" class="w-full bg-pastel-peach hover:bg-pastel-peachHover text-pastel-textMain border border-[#F2C6B4] font-medium py-3 rounded-2xl transition-all duration-200 active:scale-[0.98] text-sm">
                     🎲 สุ่มเมนูอื่น
                 </button>
-                <button onclick="goToStep('step-home')" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2.5 rounded-2xl transition text-sm">
+                <button onclick="goToStep('step-home')" class="w-full bg-transparent text-pastel-textSub hover:text-pastel-textMain font-light py-2 rounded-2xl transition-colors text-xs">
                     กลับหน้าหลัก
                 </button>
             </div>
@@ -134,51 +213,258 @@
 
     </div>
 
+    <!-- JavaScript Logic -->
     <script>
-        // Database อาหารที่เพิ่มเมนูหลากหลายขึ้น (35 รายการ)
         const menuDatabase = [
-            // งบประหยัด (< 50)
-            { name: "ข้าวไข่เจียวทรงเครื่อง", price: 40, icon: "🍳", spicy: 0, tags: [] },
-            { name: "ก๋วยเตี๋ยวน้ำใส", price: 45, icon: "🍜", spicy: 0, tags: ["ผัก"] },
-            { name: "ข้าวไข่ดาวทรงเครื่อง", price: 35, icon: "🍳", spicy: 0, tags: [] },
-            { name: "บะหมี่สำเร็จรูปใส่ไข่", price: 30, icon: "🍜", spicy: 1, tags: [] },
-            { name: "ข้าวเหนียวหมูปิ้ง", price: 40, icon: "🍢", spicy: 0, tags: ["หมู"] },
-            { name: "ขนมจีนน้ำยาป่า", price: 45, icon: "🍝", spicy: 2, tags: ["ผัก"] },
-            { name: "ข้าวเหนียวส้มตำไทย", price: 50, icon: "🥗", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            // --- เมนูก๋วยเตี๋ยว & เส้น ---
+            { name: "ก๋วยเตี๋ยวเรือน้ำตกหมูสด-เปื่อย", price: 50, icon: "🍜", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวเรือน้ำตกเนื้อริบอาย", price: 70, icon: "🍜", spicy: 2, tags: ["เนื้อ", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวต้มยำมะนาวสดหมูสับ", price: 55, icon: "🍜", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ก๋วยเตี๋ยวต้มยำสุโขทัย (ใส่ถั่วฝักยาว)", price: 60, icon: "🍜", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ก๋วยเตี๋ยวต้มยำทะเลเครื่องแน่น", price: 85, icon: "🍜", spicy: 3, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ก๋วยเตี๋ยวน้ำใสลูกชิ้นหมูหมัก", price: 45, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวน้ำใสไก่ฉีก", price: 45, icon: "🍜", spicy: 0, tags: ["ไก่", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวไก่มะระตุ๋นยาจีน", price: 55, icon: "🍗", spicy: 0, tags: ["ไก่", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวเป็ดตุ๋นน้ำแดง", price: 70, icon: "🦆", spicy: 0, tags: ["ผัก"] },
+            { name: "ก๋วยเตี๋ยวเนื้อเปื่อย-ลูกชิ้นเนื้อ", price: 65, icon: "🍜", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            { name: "เย็นตาโฟเครื่องทรง (ลูกชิ้นแคะ)", price: 60, icon: "🍜", spicy: 1, tags: ["กุ้ง", "หมู", "ผัก"] },
+            { name: "เย็นตาโฟต้มยำทรงเครื่อง", price: 65, icon: "🍜", spicy: 2, tags: ["กุ้ง", "หมู", "ผัก"] },
+            { name: "เส้นใหญ่ผัดซีอิ๊วหมูหมัก", price: 55, icon: "🍝", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "เส้นใหญ่ผัดซีอิ๊วไก่", price: 50, icon: "🍝", spicy: 0, tags: ["ไก่", "ผัก", "ไข่"] },
+            { name: "เส้นใหญ่ผัดซีอิ๊วทะเล", price: 70, icon: "🍝", spicy: 0, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ราดหน้าหมูหมักยอดผัก", price: 55, icon: "🍲", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "ราดหน้าทะเลโป๊ะแตก", price: 80, icon: "🍲", spicy: 1, tags: ["กุ้ง", "ผัก"] },
+            { name: "ราดหน้าเส้นใหญ่กรอบไข่ดาว", price: 65, icon: "🍲", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ผัดไทยกุ้งสดไข่ห่อ", price: 80, icon: "🍝", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ผัดไทยหมูกรอบ", price: 75, icon: "🍝", spicy: 1, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ผัดไทยไร้เส้นผักรวม", price: 65, icon: "🥗", spicy: 1, tags: ["ผัก", "ไข่"] },
+            { name: "ก๋วยเตี๋ยวคั่วไก่กรอบ", price: 60, icon: "🍳", spicy: 0, tags: ["ไก่", "ผัก", "ไข่"] },
+            { name: "ก๋วยเตี๋ยวคั่วทะเลซอสศรีราชา", price: 80, icon: "🍳", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "บะหมี่แห้งย่างหมูแดงอบน้ำผึ้ง", price: 60, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "บะหมี่เกี๊ยวหมูกรอบน้ำใส", price: 65, icon: "🥟", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "บะหมี่ต้มยำแห้งยำเครื่องแน่น", price: 65, icon: "🍜", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ก๋วยจั๊บน้ำข้นหมูกรอบ-ไข่ต้ม", price: 60, icon: "🍲", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ก๋วยจั๊บน้ำใสเยาวราช (พริกไทยจัด)", price: 65, icon: "🍲", spicy: 1, tags: ["หมู"] },
+            { name: "ก๋วยจั๊บญาติเวียดนาม (ก๋วยจั๊บญวน)", price: 55, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "บะหมี่กึ่งสำเร็จรูปผัดขี้เมาหมูสับ", price: 55, icon: "🍝", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "บะหมี่กึ่งสำเร็จรูปผัดไข่ใส่แหนม", price: 50, icon: "🍝", spicy: 1, tags: ["หมู", "ไข่"] },
+            { name: "เส้นหมี่ผัดกระเฉดกุ้งสด", price: 85, icon: "🍝", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "เส้นหมี่ผัดผักกระเฉดหมูกรอบ", price: 75, icon: "🍝", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ขนมจีนน้ำยาปูกะทิ", price: 89, icon: "🍝", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "ขนมจีนน้ำยาป่าลูกชิ้นปลากราย", price: 50, icon: "🍝", spicy: 2, tags: ["ผัก"] },
+            { name: "ขนมจีนแกงไก่ฟักเขียว", price: 50, icon: "🍝", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ขนมจีนซาวน้ำ โรยสับปะรด", price: 55, icon: "🍝", spicy: 0, tags: ["กุ้ง", "ไข่"] },
+            { name: "ขนมจีนน้ำพริกหวาน", price: 50, icon: "🍝", spicy: 0, tags: ["ผัก", "ไข่"] },
+            { name: "ขนมจีนแกงไตปลาเผ็ดจัด", price: 60, icon: "🍝", spicy: 3, tags: ["ผัก"] },
+            { name: "ข้าวซอยไก่เชียงใหม่", price: 70, icon: "🍜", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวซอยเนื้อน่องลายตุ๋น", price: 90, icon: "🍜", spicy: 2, tags: ["เนื้อ", "ผัก"] },
 
-            // งบมาตรฐาน (50 - 100)
-            { name: "ข้าวผัดหมู", price: 50, icon: "🍛", spicy: 0, tags: ["หมู", "ผัก"] },
-            { name: "ข้าวกะเพราหมูสับ", price: 55, icon: "🌶️", spicy: 2, tags: ["หมู", "ผัก"] },
-            { name: "ข้าวกะเพราไก่ไข่ดาว", price: 60, icon: "🍳", spicy: 2, tags: ["ผัก"] },
-            { name: "ข้าวหมูแดงหมูกรอบ", price: 65, icon: "🥓", spicy: 0, tags: ["หมู"] },
-            { name: "ข้าวผัดกุ้ง", price: 70, icon: "🍤", spicy: 0, tags: ["กุ้ง", "ผัก"] },
-            { name: "ก๋วยเตี๋ยวต้มยำสุโขทัย", price: 60, icon: "🍜", spicy: 2, tags: ["หมู", "ผัก"] },
-            { name: "ผัดไทยกุ้งสด", price: 80, icon: "🍝", spicy: 1, tags: ["กุ้ง", "ผัก"] },
-            { name: "ข้าวมันไก่ทอด", price: 55, icon: "🍗", spicy: 0, tags: [] },
-            { name: "ข้าวหน้าเป็ด", price: 75, icon: "🦆", spicy: 0, tags: ["ผัก"] },
-            { name: "ข้าวขาหมู", price: 60, icon: "🍖", spicy: 0, tags: ["หมู"] },
-            { name: "สุกี้น้ำทะเล", price: 70, icon: "🍲", spicy: 1, tags: ["กุ้ง", "ผัก"] },
-            { name: "ข้าวคะน้าหมูกรอบ", price: 65, icon: "🥬", spicy: 1, tags: ["หมู", "ผัก"] },
-            { name: "ราดหน้าหมูหมัก", price: 55, icon: "🍲", spicy: 0, tags: ["หมู", "ผัก"] },
-            { name: "ข้าวกะเพราเนื้อไข่ดาว", price: 80, icon: "🥩", spicy: 3, tags: ["เนื้อ", "ผัก"] },
-            { name: "ข้าวผัดพริกแกงหมู", price: 60, icon: "🍛", spicy: 2, tags: ["หมู", "ผัก"] },
-            { name: "ยำวุ้นเส้นทะเล", price: 85, icon: "🥗", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            // --- อาหารจานเดียว & ราดข้าว ---
+            { name: "ข้าวกะเพราหมูสับไข่ดาว", price: 60, icon: "🌶️", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวกะเพราหมูกรอบไข่ดาว", price: 75, icon: "🥓", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวกะเพราไก่สับพริกแห้ง", price: 55, icon: "🌶️", spicy: 3, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวกะเพราเนื้อสับพริกแห้งไข่ดาว", price: 85, icon: "🥩", spicy: 3, tags: ["เนื้อ", "ผัก", "ไข่"] },
+            { name: "ข้าวกะเพราทะเลรวมมิตร", price: 85, icon: "🦑", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "ข้าวกะเพราไข่เยี่ยวม้าหมูสับ", price: 70, icon: "🍳", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวกะเพราปลาหมึกไข่เค็ม", price: 85, icon: "🦑", spicy: 2, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวกะเพราตับหมูพริกสด", price: 60, icon: "🌶️", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวกะเพราเห็ดเข็มทองเจ/มังสวิรัติ", price: 50, icon: "🍄", spicy: 2, tags: ["ผัก"] },
+            { name: "ข้าวผัดหมูใส่ไข่", price: 50, icon: "🍛", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดไก่ใส่หอมใหญ่", price: 50, icon: "🍛", spicy: 0, tags: ["ไก่", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดกุ้งสดตัวโต", price: 75, icon: "🍤", spicy: 0, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดปูแกะ", price: 85, icon: "🦀", spicy: 0, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดแหนมดอนเมือง", price: 60, icon: "🍛", spicy: 1, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดกุนเชียง", price: 55, icon: "🍛", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดอเมริกันน่องไก่ทอด", price: 85, icon: "🍳", spicy: 0, tags: ["ไก่", "หมู", "ไข่"] },
+            { name: "ข้าวผัดต้มยำแห้งทะเล", price: 85, icon: "🥘", spicy: 2, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดเขียวหวานไก่แห้ง", price: 60, icon: "🍛", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวผัดพริกแกงหมูกรอบใส่ถั่วฝักยาว", price: 70, icon: "🍛", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวผัดพริกแกงใต้หมูสับ", price: 60, icon: "🍛", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวผัดพริกสดไก่หอมใหญ่", price: 55, icon: "🌶️", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวผัดพริกเผาหมูกรอบ", price: 70, icon: "🍛", spicy: 1, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวคะน้าหมูกรอบราดข้าว", price: 65, icon: "🥬", spicy: 1, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวผัดแขนงหมูกรอบ", price: 65, icon: "🥬", spicy: 1, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวผัดผักบุ้งไฟแดงหมูกรอบ", price: 60, icon: "🥬", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวผัดบล็อกโคลี่กุ้งสด", price: 80, icon: "🥦", spicy: 0, tags: ["กุ้ง", "ผัก"] },
+            { name: "ข้าวผัดกระเทียมพริกไทยหมูหมัก", price: 60, icon: "🧄", spicy: 0, tags: ["หมู"] },
+            { name: "ข้าวผัดกระเทียมพริกไทยไก่", price: 55, icon: "🧄", spicy: 0, tags: ["ไก่"] },
+            { name: "ข้าวหมูทอดกระเทียมราดข้าว + ไข่ดาว", price: 65, icon: "🥩", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวผัดผงกะหรี่ทะเลรวม", price: 85, icon: "🍛", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวผัดผงกะหรี่ไก่", price: 65, icon: "🍛", spicy: 1, tags: ["ไก่", "ผัก", "ไข่"] },
+            { name: "ข้าวหมูแดงหมูกรอบไข่ต้มยางมะตอย", price: 65, icon: "🥓", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวมันไก่ต้มเนื้อน่อง", price: 50, icon: "🐔", spicy: 0, tags: ["ไก่"] },
+            { name: "ข้าวมันไก่ทอดกรอบ", price: 55, icon: "🍗", spicy: 0, tags: ["ไก่"] },
+            { name: "ข้าวมันไก่ผสม (ต้ม+ทอด)", price: 60, icon: "🍱", spicy: 0, tags: ["ไก่"] },
+            { name: "ข้าวมันไก่ย่างน้ำจิ้มแจ่ว", price: 60, icon: "🍗", spicy: 1, tags: ["ไก่"] },
+            { name: "ข้าวหน้าเป็ดย่างอบน้ำผึ้ง", price: 75, icon: "🦆", spicy: 0, tags: ["ผัก"] },
+            { name: "ข้าวขาหมูเนื้อหนังคาโก้", price: 65, icon: "🍖", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวคั่วกลิ้งหมูสับพริกสด", price: 60, icon: "🌶️", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวหมูทอดแดดเดียว + น้ำพริกตาแดง", price: 60, icon: "🥩", spicy: 2, tags: ["หมู"] },
+            { name: "ข้าวหมูเค็มทอดน้ำปลา", price: 55, icon: "🥩", spicy: 0, tags: ["หมู"] },
+            { name: "ข้าวหน้าไก่เทอริยากิไข่ดาว", price: 65, icon: "🍗", spicy: 0, tags: ["ไก่", "ไข่"] },
+            { name: "ข้าวไข่เจียวหมูสับทรงเครื่อง", price: 45, icon: "🍳", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวไข่เจียวปูอัดอูมามิ", price: 45, icon: "🍳", spicy: 0, tags: ["กุ้ง", "ไข่"] },
+            { name: "ข้าวไข่ข้นกุ้งสดผัดพริกเผา", price: 75, icon: "🍳", spicy: 1, tags: ["กุ้ง", "ไข่"] },
+            { name: "ข้าวไข่ข้นเบคอนกรอบ", price: 65, icon: "🍳", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวไข่ข้นซอสต้มยำกุ้ง", price: 80, icon: "🍳", spicy: 2, tags: ["กุ้ง", "ไข่"] },
+            { name: "ข้าวหน้าเนื้อผัดหัวหอมซอสญี่ปุ่น", price: 89, icon: "🥩", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            { name: "ข้าวหมูกรอบผัดพริกเกลือ", price: 70, icon: "🥓", spicy: 2, tags: ["หมู"] },
+            { name: "ข้าวไก่ผัดเม็ดมะม่วงหิมพานต์", price: 70, icon: "🍛", spicy: 1, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวหมูผัดน้ำมันหอย", price: 55, icon: "🍛", spicy: 0, tags: ["หมู", "ผัก"] },
 
-            // มื้อพิเศษ (101 - 150)
-            { name: "ต้มยำกุ้งน้ำข้น + ข้าวสวย", price: 130, icon: "🥘", spicy: 3, tags: ["กุ้ง", "ผัก"] },
-            { name: "ข้าวหน้าหมูทอดคัตสึด้ง", price: 120, icon: "🍱", spicy: 0, tags: ["หมู"] },
-            { name: "ราเมนซุปกระดูกหมู", price: 140, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก"] },
-            { name: "สเต๊กหมูพริกไทยดำ", price: 129, icon: "🥩", spicy: 1, tags: ["หมู", "ผัก"] },
-            { name: "สปาเก็ตตี้คาโบนาร่า", price: 139, icon: "🍝", spicy: 0, tags: ["หมู"] },
-            { name: "เบอร์เกอร์เนื้อชีส", price: 149, icon: "🍔", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            // --- กับข้าวอาหารไทย & ต้มยำ ---
+            { name: "ต้มยำกุ้งน้ำข้นหม้อไฟ", price: 180, icon: "🥘", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "ต้มยำกุ้งน้ำใสใบกะเพรา", price: 160, icon: "🥘", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "ต้มยำโป๊ะแตกทะเลรวม", price: 180, icon: "🥘", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "ต้มยำไก่บ้านใบมะขามอ่อน", price: 130, icon: "🥘", spicy: 3, tags: ["ไก่", "ผัก"] },
+            { name: "แกงส้มชะอมไข่กุ้งสด", price: 140, icon: "🥘", spicy: 2, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "แกงส้มแป๊ะซะปลาช่อนทอด", price: 250, icon: "🐟", spicy: 2, tags: ["ผัก"] },
+            { name: "ต้มแซ่บกระดูกหมูอ่อนพริกขี้หนูสวน", price: 120, icon: "🍲", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ต้มซุปเปอร์ตีนไก่รสจัดจ้าน", price: 90, icon: "🍲", spicy: 3, tags: ["ไก่", "ผัก"] },
+            { name: "ต้มจืดเต้าหู้หมูสับสาหร่าย", price: 80, icon: "🍲", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "ต้มจืดฟักมะนาวดองใส่ไก่", price: 85, icon: "🍲", spicy: 0, tags: ["ไก่", "ผัก"] },
+            { name: "แกงจืดมะระยัดไส้หมูสับ", price: 90, icon: "🍲", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "แกงเขียวหวานไก่ยอดมะพร้าวอ่อน", price: 100, icon: "🥘", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "แกงเขียวหวานลูกชิ้นปลากรายยัดไส้ไข่เค็ม", price: 130, icon: "🥘", spicy: 2, tags: ["ผัก", "ไข่"] },
+            { name: "แกงเผ็ดเป็ดย่างใส่สับปะรด", price: 150, icon: "🥘", spicy: 2, tags: ["ผัก"] },
+            { name: "พะแนงหมูเรืองแสง", price: 110, icon: "🥘", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "พะแนงเนื้อนุ่ม", price: 130, icon: "🥘", spicy: 2, tags: ["เนื้อ", "ผัก"] },
+            { name: "แกงมัสมั่นไก่ถั่วลิสง", price: 120, icon: "🥘", spicy: 1, tags: ["ไก่", "ผัก"] },
+            { name: "แกงมัสมั่นเนื้อวัวชิ้นโต", price: 150, icon: "🥘", spicy: 1, tags: ["เนื้อ", "ผัก"] },
+            { name: "แกงป่าไก่บ้านพริกแกงสด", price: 110, icon: "🥘", spicy: 3, tags: ["ไก่", "ผัก"] },
+            { name: "ฉู่ฉี่ปลาทับทิมทอด", price: 160, icon: "🐟", spicy: 2, tags: ["ผัก"] },
+            { name: "ปลากะพงทอดน้ำปลา + ยำมะม่วง", price: 380, icon: "🐟", spicy: 1, tags: ["ผัก"] },
+            { name: "ปลากะพงนึ่งมะนาว", price: 380, icon: "🐟", spicy: 3, tags: ["ผัก"] },
+            { name: "ปลาช่อนลุยสวนเครื่องสมุนไพร", price: 320, icon: "🐟", spicy: 2, tags: ["ผัก"] },
+            { name: "ผัดฉ่าทะเลหม้อไฟ", price: 180, icon: "🍳", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "ผัดพริกขิงหมูกรอบใส่ถั่วฝักยาว", price: 120, icon: "🥓", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "กุ้งซอสมะขามโรยหอมเจียว", price: 200, icon: "🦐", spicy: 0, tags: ["กุ้ง"] },
+            { name: "กุ้งอบวุ้นเส้นหม้อดิน", price: 180, icon: "🦐", spicy: 0, tags: ["กุ้ง", "ผัก"] },
+            { name: "ปูผัดผงกะหรี่", price: 350, icon: "🦀", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "หมูสามชั้นทอดน้ำปลา", price: 120, icon: "🥓", spicy: 0, tags: ["หมู"] },
+            { name: "ซี่โครงหมูอบน้ำผึ้ง", price: 140, icon: "🍖", spicy: 0, tags: ["หมู"] },
+            { name: "ไก่ผัดเม็ดมะม่วงจานใหญ่", price: 130, icon: "🍛", spicy: 1, tags: ["ไก่", "ผัก"] },
+            { name: "ผัดผักรวมมิตรน้ำมันหอย", price: 80, icon: "🥦", spicy: 0, tags: ["ผัก"] },
 
-            // จัดเต็ม (> 150)
-            { name: "สเต๊กเนื้อริบอาย", price: 280, icon: "🥩", spicy: 0, tags: ["เนื้อ", "ผัก"] },
-            { name: "ชาบูบุฟเฟต์", price: 299, icon: "🍲", spicy: 1, tags: ["หมู", "เนื้อ", "กุ้ง", "ผัก"] },
-            { name: "ชุดแซลมอนซาชิมิ", price: 350, icon: "🍣", spicy: 0, tags: [] },
-            { name: "พิซซ่าเตาถ่าน", price: 290, icon: "🍕", spicy: 0, tags: ["หมู"] },
-            { name: "ปิ้งย่างเกาหลีบุฟเฟต์", price: 349, icon: "🥓", spicy: 1, tags: ["หมู", "เนื้อ", "ผัก"] },
-            { name: "กุ้งเผาปลาเผาชุดใหญ่", price: 450, icon: "🦐", spicy: 2, tags: ["กุ้ง", "ผัก"] }
+            // --- อาหารอีสาน & ส้มตำยำแซ่บ ---
+            { name: "ส้มตำไทยไข่เค็ม", price: 60, icon: "🥗", spicy: 2, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ส้มตำปูปลาร้านัวๆ", price: 50, icon: "🥗", spicy: 3, tags: ["ผัก"] },
+            { name: "ตำซั่วขนมจีนแคบหมู", price: 65, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ตำแตงไข่ต้มยางมะตอย", price: 55, icon: "🥒", spicy: 3, tags: ["ผัก", "ไข่"] },
+            { name: "ตำถั่วหมูกรอบ", price: 75, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ตำป่าเครื่องแน่น (หน่อไม้+กะท้อน)", price: 70, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ตำข้าวโพดไข่เค็มหวานนัว", price: 65, icon: "🌽", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ตำผลไม้รวมกุ้งแห้ง", price: 75, icon: "🍎", spicy: 1, tags: ["กุ้ง", "ผัก"] },
+            { name: "ตำแซลมอนปลาร้าสุดแซ่บ", price: 180, icon: "🥗", spicy: 3, tags: ["ผัก"] },
+            { name: "ลาบหมูสับตับหวาน", price: 70, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ลาบไก่สับข้าวคั่วหอม", price: 65, icon: "🥗", spicy: 3, tags: ["ไก่", "ผัก"] },
+            { name: "ลาบเนื้อวัวสุก/ดิบ", price: 85, icon: "🥩", spicy: 3, tags: ["เนื้อ", "ผัก"] },
+            { name: "น้ำตกหมูย่างฉ่ำๆ", price: 80, icon: "🥩", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "น้ำตกเนื้อย่างโพนยางคำ", price: 100, icon: "🥩", spicy: 3, tags: ["เนื้อ", "ผัก"] },
+            { name: "ซุปหน่อไม้ใส่น้ำปลาร้า", price: 55, icon: "🥗", spicy: 3, tags: ["ผัก"] },
+            { name: "ก้อยเนื้อขมไร้กลิ่นคาว", price: 90, icon: "🥩", spicy: 3, tags: ["เนื้อ", "ผัก"] },
+            { name: "คอหมูย่างจิ้มแจ่ว", price: 95, icon: "🥩", spicy: 1, tags: ["หมู"] },
+            { name: "เสือร้องไห้ย่างพริกไทยดำ", price: 120, icon: "🥩", spicy: 1, tags: ["เนื้อ"] },
+            { name: "ไก่ย่างวิเชียรบุรีครึ่งตัว", price: 110, icon: "🍗", spicy: 0, tags: ["ไก่"] },
+            { name: "ปลาดุกย่างสะเดาน้ำปลาหวาน", price: 80, icon: "🐟", spicy: 1, tags: ["ผัก"] },
+            { name: "ไส้อ่อนย่างเกลือ", price: 85, icon: "🍢", spicy: 0, tags: ["หมู"] },
+            { name: "ยำวุ้นเส้นโบราณใส่หมูสับกุ้งแห้ง", price: 75, icon: "🥗", spicy: 3, tags: ["หมู", "กุ้ง", "ผัก"] },
+            { name: "ยำมาม่าทรงเครื่องหมูกรอบ", price: 80, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "ยำสามกรอบ (กระเพาะปลา+หมูแผ่น)", price: 120, icon: "🥗", spicy: 2, tags: ["หมู", "กุ้ง", "ผัก"] },
+            { name: "ยำแซลมอนน้ำยำน้ำนัว", price: 190, icon: "🥗", spicy: 3, tags: ["ผัก"] },
+            { name: "ยำกุ้งสดไข่แดงเค็ม", price: 150, icon: "🥗", spicy: 3, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ยำหมูยออุบลไข่เค็ม", price: 90, icon: "🥗", spicy: 3, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ยำเห็ดเข็มทองกุ้งสด", price: 95, icon: "🍄", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "ยำถั่วพูไข่ต้มยางมะตอย", price: 100, icon: "🥗", spicy: 2, tags: ["กุ้ง", "หมู", "ผัก", "ไข่"] },
+            { name: "ยำมะเขือยาวเผากุ้งสด", price: 95, icon: "🍆", spicy: 2, tags: ["กุ้ง", "หมู", "ผัก", "ไข่"] },
+            { name: "กุ้งแช่น้ำปลาพริกสด", price: 130, icon: "🦐", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+
+            // --- อาหารนานาชาติ (ญี่ปุ่น, เกาหลี, ฝรั่ง, จีน) ---
+            { name: "ข้าวหน้าหมูทอดคัตสึด้ง", price: 120, icon: "🍱", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "ข้าวหน้าไก่โอยาโกะด้ง", price: 110, icon: "🍱", spicy: 0, tags: ["ไก่", "ไข่"] },
+            { name: "ข้าวหน้าเนื้อกิวด้งไข่ลาวา", price: 150, icon: "🥩", spicy: 0, tags: ["เนื้อ", "ไข่"] },
+            { name: "ข้าวหน้าปลาแซลมอนย่างเทอริยากิ", price: 180, icon: "🐟", spicy: 0, tags: [] },
+            { name: "ข้าวหน้าปลาไหลย่างซีอิ๊วญี่ปุ่น", price: 320, icon: "🍱", spicy: 0, tags: [] },
+            { name: "ข้าวแกงกะหรี่หมูทอดทงคัตสึ", price: 145, icon: "🍛", spicy: 1, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวแกงกะหรี่เนื้อวัวตุ๋น", price: 175, icon: "🍛", spicy: 1, tags: ["เนื้อ", "ผัก"] },
+            { name: "ราเมนซุปกระดูกหมูทงคตสึ", price: 139, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ราเมนซุปโชยุหมูชาชู", price: 129, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ราเมนซุปมิโสะเนื้อเปื่อย", price: 149, icon: "🍜", spicy: 0, tags: ["เนื้อ", "ผัก", "ไข่"] },
+            { name: "อุด้งแกงกะหรี่กุ้งเทมปุระ", price: 160, icon: "🍜", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "โซบะเย็นซอสซารุ", price: 110, icon: "🍜", spicy: 0, tags: [] },
+            { name: "ชุดซูชิรวมหน้าแซลมอน & ทูน่า", price: 250, icon: "🍣", spicy: 0, tags: [] },
+            { name: "เกี๊ยวซ่าทอดกรอบซอสญี่ปุ่น", price: 80, icon: "🥟", spicy: 0, tags: ["หมู"] },
+            { name: "ทาโกยากิไส้ปลาหมึกยักษ์", price: 89, icon: "🍡", spicy: 0, tags: ["กุ้ง"] },
+            { name: "ซุปกิมจิเต้าหู้อ่อนหมูสามชั้น", price: 135, icon: "🍲", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ซุปบูเดจิแกหม้อไฟเกาหลี (ต้มยำเกาหลี)", price: 299, icon: "🍲", spicy: 2, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ต๊อกโบกีซอสเผ็ดเกาหลีชีส", price: 120, icon: "🍡", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "คิมบับห่อข้าวห่อสาหร่ายเกาหลี", price: 89, icon: "🌯", spicy: 0, tags: ["หมู", "ผัก", "ไข่"] },
+            { name: "ไก่ทอดเกาหลีซอสการ์ลิคซอยซีอิ๊ว", price: 129, icon: "🍗", spicy: 0, tags: ["ไก่"] },
+            { name: "ไก่ทอดเกาหลีซอสชอนมัสตาร์ดเผ็ด", price: 139, icon: "🍗", spicy: 2, tags: ["ไก่"] },
+            { name: "จาจังมยอน (บะหมี่ซอสดำเกาหลี)", price: 130, icon: "🍜", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "บิบิมบับ (ข้าวยำเกาหลีชามร้อน)", price: 145, icon: "🥗", spicy: 1, tags: ["หมู", "เนื้อ", "ผัก", "ไข่"] },
+            { name: "สปาเก็ตตี้คาโบนาร่าชีสเยิ้ม", price: 149, icon: "🍝", spicy: 0, tags: ["หมู", "ไข่"] },
+            { name: "สปาเก็ตตี้ผัดขี้เมาเบคอนพริกแห้ง", price: 129, icon: "🍝", spicy: 3, tags: ["หมู", "ผัก"] },
+            { name: "สปาเก็ตตี้ซอสมะเขือเทศเนื้อสับ", price: 139, icon: "🍝", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            { name: "สปาเก็ตตี้เส้นดำพริกแห้งซีฟู้ด", price: 169, icon: "🍝", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "ผักโขมอบชีสชามร้อน", price: 110, icon: "🥘", spicy: 0, tags: ["ผัก"] },
+            { name: "ลาซานญ่าเนื้อสับอบชีส", price: 180, icon: "🍕", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            { name: "พิซซ่าเตาถ่านหน้าฮาวายเอี้ยน", price: 290, icon: "🍕", spicy: 0, tags: ["หมู"] },
+            { name: "พิซซ่าหน้าซีฟู้ดค็อกเทล", price: 340, icon: "🍕", spicy: 0, tags: ["กุ้ง"] },
+            { name: "สเต๊กเนื้อริบอายพริกไทยดำ", price: 320, icon: "🥩", spicy: 1, tags: ["เนื้อ", "ผัก"] },
+            { name: "สเต๊กหมูพอร์คชอปซอสเกรวี่", price: 180, icon: "🥩", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "สเต๊กอกไก่ย่างสมุนไพร", price: 129, icon: "🍗", spicy: 0, tags: ["ไก่", "ผัก"] },
+            { name: "สเต๊กปลาแซลมอนย่างเนยกระเทียม", price: 270, icon: "🐟", spicy: 0, tags: ["ผัก"] },
+            { name: "เบอร์เกอร์เนื้อวัวเบคอนชีส", price: 169, icon: "🍔", spicy: 0, tags: ["เนื้อ", "หมู", "ผัก"] },
+            { name: "เบอร์เกอร์ไก่ทอดสไปซี่", price: 119, icon: "🍔", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ติ่มซำชุดรวม (ขนมจีบ+ฮะเก๋า)", price: 120, icon: "🥟", spicy: 0, tags: ["กุ้ง", "หมู"] },
+            { name: "ซาลาเปาไส้ไหลครีมลาวา", price: 45, icon: "🥟", spicy: 0, tags: ["ไข่"] },
+            { name: "เป็ดย่างโฟร์ซีซั่นส์ครึ่งตัว", price: 450, icon: "🦆", spicy: 0, tags: ["ผัก"] },
+            { name: "หมูกรอบสไตล์กวางตุ้ง", price: 200, icon: "🥓", spicy: 0, tags: ["หมู"] },
+
+            // --- อาหารสุขภาพ / อาหารคลีน ---
+            { name: "สลัดอกไก่ย่างน้ำสลัดงาญี่ปุ่น", price: 110, icon: "🥗", spicy: 0, tags: ["ไก่", "ผัก"] },
+            { name: "สลัดแซลมอนย่างอะโวคาโด", price: 180, icon: "🥗", spicy: 0, tags: ["ผัก"] },
+            { name: "สลัดทูน่าในน้ำแร่ไข่ต้ม", price: 95, icon: "🥗", spicy: 0, tags: ["ผัก", "ไข่"] },
+            { name: "สลัดโรลปูอัดน้ำจิ้มซีฟู้ดคลีน", price: 65, icon: "🥗", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "สลัดโรลอกไก่พริกไทยดำ", price: 70, icon: "🥗", spicy: 1, tags: ["ไก่", "ผัก"] },
+            { name: "สุกี้น้ำอกไก่ไร้น้ำมัน", price: 70, icon: "🍲", spicy: 1, tags: ["ไก่", "ผัก", "ไข่"] },
+            { name: "สุกี้แห้งทะเลไร้น้ำมัน", price: 85, icon: "🍲", spicy: 1, tags: ["กุ้ง", "ผัก", "ไข่"] },
+            { name: "ข้าวไรซ์เบอร์รี่อกไก่ผัดพริกหยวก", price: 75, icon: "🍱", spicy: 1, tags: ["ไก่", "ผัก"] },
+            { name: "ข้าวไรซ์เบอร์รี่ ปลาแซลมอนย่างพริกไทยดำ", price: 150, icon: "🍱", spicy: 1, tags: ["ผัก"] },
+            { name: "ข้าวกล้องลาบไก่สับไร้น้ำมัน", price: 70, icon: "🍱", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ก๋วยเตี๋ยวลุยสวนผักรวมหมูหมัก", price: 60, icon: "🌯", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ยำอกไก่ต้มสมุนไพร", price: 80, icon: "🥗", spicy: 2, tags: ["ไก่", "ผัก"] },
+            { name: "ซุปฟักทองครีมมนต์คลีน", price: 85, icon: "🥣", spicy: 0, tags: ["ผัก"] },
+            { name: "ซุปเห็ดแชมปิยองทรงเครื่อง", price: 90, icon: "🥣", spicy: 0, tags: ["ผัก"] },
+            { name: "เต้าหู้นึ่งซีอิ๊วใส่เห็ดหอม", price: 75, icon: "🥗", spicy: 0, tags: ["ผัก"] },
+
+            // --- เมนูกินเล่น & ขนมหวาน ---
+            { name: "เฟรนช์ฟรายส์ทอดซอสชีส", price: 69, icon: "🍟", spicy: 0, tags: [] },
+            { name: "นักเก็ตไก่ทอด (6 ชิ้น)", price: 59, icon: "🍗", spicy: 0, tags: ["ไก่"] },
+            { name: "ปีกไก่บนทอดน้ำปลา", price: 79, icon: "🍗", spicy: 0, tags: ["ไก่"] },
+            { name: "เกี๊ยวซ่าทอดไส้หมู", price: 65, icon: "🥟", spicy: 0, tags: ["หมู"] },
+            { name: "ปอเปี๊ยะทอดไส้วุ้นเส้นผัก", price: 50, icon: "🌯", spicy: 0, tags: ["ผัก"] },
+            { name: "ถุงทองไส้กุ้งทอด", price: 80, icon: "🥟", spicy: 0, tags: ["กุ้ง"] },
+            { name: "ทอดมันกุ้งสดเนื้อแน่น", price: 120, icon: "🍤", spicy: 0, tags: ["กุ้ง", "ไข่"] },
+            { name: "ทอดมันปลากรายพริกแกง", price: 80, icon: "🍢", spicy: 2, tags: ["ผัก", "ไข่"] },
+            { name: "หมูสะเต๊ะ + ขนมปังปิ้ง", price: 90, icon: "🍢", spicy: 1, tags: ["หมู"] },
+            { name: "ไส้กรอกอีสานย่างเปรี้ยว", price: 50, icon: "🌭", spicy: 1, tags: ["หมู"] },
+            { name: "บิงซูสตรอว์เบอร์รี่นมสด", price: 169, icon: "🍧", spicy: 0, tags: [] },
+            { name: "บิงซูชาไทยเฉาก๊วย", price: 159, icon: "🍧", spicy: 0, tags: [] },
+            { name: "ฮันนี่โทสต์ไอศกรีมวานิลลา", price: 149, icon: "🍞", spicy: 0, tags: ["ไข่"] },
+            { name: "ปังเย็นโอวัลตินภูเขาไฟ", price: 79, icon: "🍨", spicy: 0, tags: [] },
+            { name: "ข้าวเหนียวมะม่วงอกร้องสุก", price: 100, icon: "🥭", spicy: 0, tags: [] },
+            { name: "ข้าวเหนียวทุเรียนหมอนทอง", price: 130, icon: "🍧", spicy: 0, tags: [] },
+            { name: "เฉาก๊วยชากังราวใส่น้ำเชื่อม", price: 35, icon: "🍨", spicy: 0, tags: [] },
+            { name: "ทับทิมกรอบน้ำกะทิมะพร้าวอ่อน", price: 45, icon: "🍧", spicy: 0, tags: [] },
+            { name: "บัวลอยไข่หวานกะทิสด", price: 40, icon: "🥣", spicy: 0, tags: ["ไข่"] },
+            { name: "โรตีกล้วยหอมใส่ไข่ราดนม", price: 50, icon: "🥞", spicy: 0, tags: ["ไข่"] },
+            { name: "วาฟเฟิลไอศกรีมช็อกโกแลต", price: 99, icon: "🧇", spicy: 0, tags: ["ไข่"] },
+            { name: "ชานมไข่มุกไต้หวันพ่นไฟ", price: 55, icon: "🧋", spicy: 0, tags: [] },
+            { name: "ชาไทยเย็นเข้มข้นโบราณ", price: 40, icon: "🥤", spicy: 0, tags: [] },
+            { name: "มัทฉะลาเต้เย็นหวานน้อย", price: 65, icon: "🍵", spicy: 0, tags: [] },
+            { name: "สมูทตี้อโวคาโดปั่นนมสด", price: 75, icon: "🥤", spicy: 0, tags: [] }
         ];
 
         let userBudget = 999;
@@ -189,20 +475,34 @@
         function goToStep(stepId) {
             const steps = ['step-home', 'step-budget', 'step-pref', 'step-loading', 'step-result'];
             steps.forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-                document.getElementById(id).classList.remove('flex');
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.classList.remove('flex');
+                }
             });
             
             const target = document.getElementById(stepId);
-            target.classList.remove('hidden');
-            if (stepId === 'step-home' || stepId === 'step-loading') {
-                target.classList.add('flex');
+            if (target) {
+                target.classList.remove('hidden');
+                if (stepId === 'step-home' || stepId === 'step-loading') {
+                    target.classList.add('flex');
+                }
             }
         }
 
         function selectBudget(amount) {
             userBudget = amount;
             goToStep('step-pref');
+        }
+
+        function setSpicy(level, btn) {
+            document.getElementById('spicy-level').value = level;
+            const buttons = document.querySelectorAll('.spicy-btn');
+            buttons.forEach(b => {
+                b.className = "spicy-btn p-2.5 bg-pastel-cardInner/70 border border-[#DAC4B8] rounded-xl transition-all duration-200 hover:border-pastel-accent";
+            });
+            btn.className = "spicy-btn p-2.5 bg-pastel-peach border border-[#F2C6B4] text-pastel-textMain rounded-xl transition-all duration-200";
         }
 
         function processWizardResult() {
@@ -221,7 +521,7 @@
                 });
 
                 displayResult();
-            }, 600);
+            }, 500);
         }
 
         function randomDirectly() {
@@ -240,10 +540,10 @@
             if (filteredMenus.length === 0) {
                 currentSelectedMenu = null;
                 document.getElementById('menu-name').innerText = "ไม่พบเมนูที่ตรงเงื่อนไข";
-                document.getElementById('menu-icon').innerText = "❌";
+                document.getElementById('menu-icon').innerText = "🍃";
                 document.getElementById('menu-price').innerText = "-";
                 document.getElementById('menu-desc').innerText = "ลองขยายงบประมาณหรือลดข้อจำกัดอาหารดูนะครับ";
-                findBtn.classList.add('hidden');
+                if (findBtn) findBtn.classList.add('hidden');
             } else {
                 const randomIndex = Math.floor(Math.random() * filteredMenus.length);
                 currentSelectedMenu = filteredMenus[randomIndex];
@@ -252,10 +552,10 @@
                 document.getElementById('menu-icon').innerText = currentSelectedMenu.icon;
                 document.getElementById('menu-price').innerText = `ประมาณ ${currentSelectedMenu.price} บาท`;
                 document.getElementById('menu-desc').innerText = `ความเผ็ดระดับ: ${currentSelectedMenu.spicy}/3`;
-                findBtn.classList.remove('hidden');
+                if (findBtn) findBtn.classList.remove('hidden');
             }
 
-            document.getElementById('result-badge').innerText = isDirectRandom ? "🎲 สุ่มเมนูทันที" : "🎯 สุ่มแบบกรองตามเงื่อนไข";
+            document.getElementById('result-badge').innerText = isDirectRandom ? "🎲 ผลสุ่มทันที" : "✨ ผลสุ่มตรงตามเงื่อนไข";
             goToStep('step-result');
         }
 
@@ -268,7 +568,6 @@
             }
         }
 
-        // ค้นหาร้านเมนูที่สุ่มได้บน Google Maps ทันที
         function findNearbyStore() {
             if (currentSelectedMenu) {
                 const query = encodeURIComponent(`ร้าน ${currentSelectedMenu.name} ใกล้ฉัน`);
@@ -276,7 +575,6 @@
             }
         }
 
-        // ค้นหาร้านอาหารทั่วไปใกล้ฉันจากหน้าหลัก
         function searchNearbyGeneral() {
             const query = encodeURIComponent("ร้านอาหาร ใกล้ฉัน");
             window.open(`https://www.google.com/maps/search/${query}`, '_blank');
