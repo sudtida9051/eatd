@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กินอะไรดี? - What Should I Eat?</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font (Kanit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+
+    <!-- App Container -->
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden border border-amber-100 min-h-[600px] flex flex-col justify-between p-6">
+
+        <!-- STEP 1: HOME PAGE -->
+        <div id="step-home" class="flex flex-col justify-between h-full space-y-8 my-auto">
+            <div class="text-center space-y-3 pt-6">
+                <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                    🍳
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">กินอะไรดี?</h1>
+                <p class="text-gray-500 text-sm">แอปช่วยเลือกเมนูอาหารที่เหมาะกับคุณ<br>ได้อย่างรวดเร็ว ภายในไม่กี่ขั้นตอน</p>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="goToStep('step-budget')" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3.5 rounded-2xl shadow-lg shadow-amber-200 transition active:scale-95 text-lg">
+                    🎯 ช่วยฉันเลือก
+                </button>
+                <button onclick="randomDirectly()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3.5 rounded-2xl transition active:scale-95 text-lg">
+                    🎲 สุ่มเมนูทันที
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 2: BUDGET -->
+        <div id="step-budget" class="hidden space-y-6">
+            <div>
+                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">ขั้นตอนที่ 1 จาก 3</span>
+                <h2 class="text-2xl font-bold text-gray-800 mt-1">เลือกลิมิตงบประมาณ 💵</h2>
+            </div>
+            <div class="space-y-3">
+                <button onclick="selectBudget(50)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
+                    ต่ำกว่า 50 บาท (ประหยัด)
+                </button>
+                <button onclick="selectBudget(100)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
+                    50 - 100 บาท (มาตรฐาน)
+                </button>
+                <button onclick="selectBudget(150)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
+                    101 - 150 บาท (มื้อพิเศษ)
+                </button>
+                <button onclick="selectBudget(999)" class="budget-btn w-full p-4 border-2 border-gray-100 rounded-2xl text-left font-medium hover:border-amber-400 focus:border-amber-500 focus:bg-amber-50 transition">
+                    มากกว่า 150 บาท (จัดเต็ม)
+                </button>
+            </div>
+            <button onclick="goToStep('step-home')" class="text-sm text-gray-400 hover:text-gray-600 w-full text-center">← ย้อนกลับ</button>
+        </div>
+
+        <!-- STEP 3: PREFERENCES (ALLERGIES / DISLIKES / SPICY) -->
+        <div id="step-pref" class="hidden space-y-6">
+            <div>
+                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">ขั้นตอนที่ 2 จาก 3</span>
+                <h2 class="text-2xl font-bold text-gray-800 mt-1">ข้อจำกัดอาหาร 🚫</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Food Restrictions -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">อาหารที่ไม่กิน / อาหารที่แพ้</label>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" value="กุ้ง" class="pref-tag rounded text-amber-500 mr-2"> กุ้ง / อาหารทะเล
+                        </label>
+                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" value="หมู" class="pref-tag rounded text-amber-500 mr-2"> เนื้อหมู
+                        </label>
+                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" value="เนื้อ" class="pref-tag rounded text-amber-500 mr-2"> เนื้อวัว
+                        </label>
+                        <label class="flex items-center p-2.5 border rounded-xl cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" value="ผัก" class="pref-tag rounded text-amber-500 mr-2"> ผัก
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Spicy Level -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">ระดับความเผ็ดที่กินได้ 🌶️</label>
+                    <select id="spicy-level" class="w-full p-3 border-2 border-gray-100 rounded-xl focus:border-amber-500 outline-none text-sm">
+                        <option value="0">ไม่เผ็ดเลย (0/3)</option>
+                        <option value="1" selected>เผ็ดน้อย (1/3)</option>
+                        <option value="2">เผ็ดกลาง (2/3)</option>
+                        <option value="3">เผ็ดมาก (3/3)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="processWizardResult()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3.5 rounded-2xl shadow-lg transition active:scale-95">
+                    ประมวลผลและสุ่มเมนู ⚙️
+                </button>
+                <button onclick="goToStep('step-budget')" class="text-sm text-gray-400 hover:text-gray-600 w-full text-center mt-3">← ย้อนกลับ</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: LOADING -->
+        <div id="step-loading" class="hidden flex-col items-center justify-center my-auto space-y-4 text-center">
+            <div class="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-gray-600 font-medium">ระบบกำลังตรวจสอบเงื่อนไข<br>และเลือกเมนูที่เหมาะกับคุณ...</p>
+        </div>
+
+        <!-- STEP 5: RESULT PAGE -->
+        <div id="step-result" class="hidden space-y-6 text-center my-auto">
+            <div class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold" id="result-badge">
+                ผลลัพธ์จากการสุ่ม
+            </div>
+
+            <!-- Menu Card -->
+            <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-3xl border border-amber-200 shadow-sm space-y-3">
+                <div class="text-5xl" id="menu-icon">🍱</div>
+                <h3 class="text-2xl font-bold text-gray-800" id="menu-name">ข้าวกะเพราหมูกรอบ</h3>
+                <p class="text-amber-600 font-semibold" id="menu-price">ประมาณ 65 บาท</p>
+                <p class="text-xs text-gray-500" id="menu-desc">ความเผ็ด: เผ็ดกลาง | ไม่ขัดกับเงื่อนไขที่แพ้</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <button onclick="rerandom()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-3.5 rounded-2xl shadow-md transition active:scale-95">
+                    🎲 สุ่มใหม่อีกครั้ง
+                </button>
+                <button onclick="goToStep('step-home')" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-3 rounded-2xl transition">
+                    กลับหน้าหลัก
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Database ของอาหาร (Mock Data)
+        const menuDatabase = [
+            { name: "ข้าวไข่เจียวทรงเครื่อง", price: 40, icon: "🍳", spicy: 0, tags: [] },
+            { name: "ก๋วยเตี๋ยวน้ำใส", price: 45, icon: "🍜", spicy: 0, tags: ["ผัก"] },
+            { name: "ข้าวผัดหมู", price: 50, icon: "🍛", spicy: 0, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวกะเพราหมูสับ", price: 55, icon: "🌶️", spicy: 2, tags: ["หมู", "ผัก"] },
+            { name: "ข้าวหมูแดง", price: 60, icon: "🥓", spicy: 0, tags: ["หมู"] },
+            { name: "ส้มตำไทย", price: 60, icon: "🥗", spicy: 2, tags: ["กุ้ง", "ผัก"] },
+            { name: "ข้าวผัดกุ้ง", price: 70, icon: "🍤", spicy: 0, tags: ["กุ้ง", "ผัก"] },
+            { name: "ต้มยำกุ้งน้ำข้น", price: 120, icon: "🥘", spicy: 3, tags: ["กุ้ง", "ผัก"] },
+            { name: "สเต๊กเนื้อ", price: 180, icon: "🥩", spicy: 0, tags: ["เนื้อ", "ผัก"] },
+            { name: "ชาบูบุฟเฟต์", price: 299, icon: "🍲", spicy: 1, tags: ["หมู", "เนื้อ", "กุ้ง", "ผัก"] }
+        ];
+
+        // State เก็บค่าผู้ใช้
+        let userBudget = 999;
+        let filteredMenus = [];
+        let isDirectRandom = false;
+
+        function goToStep(stepId) {
+            const steps = ['step-home', 'step-budget', 'step-pref', 'step-loading', 'step-result'];
+            steps.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                document.getElementById(id).classList.remove('flex');
+            });
+            
+            const target = document.getElementById(stepId);
+            target.classList.remove('hidden');
+            if (stepId === 'step-home' || stepId === 'step-loading') {
+                target.classList.add('flex');
+            }
+        }
+
+        function selectBudget(amount) {
+            userBudget = amount;
+            goToStep('step-pref');
+        }
+
+        // กรณีเลือก "ช่วยฉันเลือก" -> กรองข้อมูลแล้วสุ่ม
+        function processWizardResult() {
+            isDirectRandom = false;
+            goToStep('step-loading');
+
+            // ดึงค่า Restriction & Spicy
+            const checkedTags = Array.from(document.querySelectorAll('.pref-tag:checked')).map(cb => cb.value);
+            const spicyMax = parseInt(document.getElementById('spicy-level').value);
+
+            setTimeout(() => {
+                // Filter Logic
+                filteredMenus = menuDatabase.filter(item => {
+                    // Check Budget
+                    const matchBudget = item.price <= userBudget;
+                    // Check Restrictions (ถ้าเมนูมีสิ่งที่แพ้/ไม่กิน จะไม่เอา)
+                    const matchRestriction = !item.tags.some(tag => checkedTags.includes(tag));
+                    // Check Spicy
+                    const matchSpicy = item.spicy <= spicyMax;
+
+                    return matchBudget && matchRestriction && matchSpicy;
+                });
+
+                displayResult();
+            }, 1000); // จำลองการประมวลผล 1 วินาที
+        }
+
+        // กรณีเลือก "สุ่มเมนูทันที" จากหน้าแรก
+        function randomDirectly() {
+            isDirectRandom = true;
+            filteredMenus = [...menuDatabase]; // ใช้เมนูทั้งหมด
+            goToStep('step-loading');
+
+            setTimeout(() => {
+                displayResult();
+            }, 600);
+        }
+
+        // แสดงผลลัพธ์
+        function displayResult() {
+            if (filteredMenus.length === 0) {
+                document.getElementById('menu-name').innerText = "ไม่พบเมนูที่ตรงเงื่อนไข";
+                document.getElementById('menu-icon').innerText = "❌";
+                document.getElementById('menu-price').innerText = "-";
+                document.getElementById('menu-desc').innerText = "ลองขยายงบประมาณหรือลดข้อจำกัดอาหารดูนะครับ";
+            } else {
+                const randomIndex = Math.floor(Math.random() * filteredMenus.length);
+                const selected = filteredMenus[randomIndex];
+
+                document.getElementById('menu-name').innerText = selected.name;
+                document.getElementById('menu-icon').innerText = selected.icon;
+                document.getElementById('menu-price').innerText = `ประมาณ ${selected.price} บาท`;
+                document.getElementById('menu-desc').innerText = `ระดับความเผ็ด: ${selected.spicy}/3`;
+            }
+
+            document.getElementById('result-badge').innerText = isDirectRandom ? "🎲 สุ่มเมนูทันที" : "🎯 สุ่มแบบกรองตามเงื่อนไข";
+            goToStep('step-result');
+        }
+
+        // สุ่มอีกครั้ง
+        function rerandom() {
+            if (filteredMenus.length > 0) {
+                displayResult();
+            } else {
+                if (isDirectRandom) randomDirectly();
+                else processWizardResult();
+            }
+        }
+    </script>
+</body>
+</html>
